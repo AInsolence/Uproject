@@ -12,6 +12,7 @@
  */
 
 #include "header.hpp"
+#include "FBullCowGame.hpp"
 
 /*
  * 
