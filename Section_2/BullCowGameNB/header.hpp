@@ -5,22 +5,18 @@
  */
 
 /* 
- * File:   newfile.hpp
+ * File:   header.hpp
  * Author: A.Iovbak
  *
- * Created on September 5, 2017, 1:03 PM
+ * Created on September 11, 2017, 12:04 PM
  */
 
+#ifndef HEADER_HPP
+#define HEADER_HPP
 
-#ifndef NEWFILE_HPP
-#define NEWFILE_HPP
-
-#include <cstdlib>
 #include <iostream>
-#include <vector>
-#include <list>
 
-using namespace std;
+void PlaySingleGame();
 
-#endif /* NEWFILE_HPP */
+#endif /* HEADER_HPP */
 

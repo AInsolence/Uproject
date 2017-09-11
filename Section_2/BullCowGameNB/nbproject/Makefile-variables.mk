@@ -9,19 +9,19 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=MinGW-Windows
 CND_ARTIFACT_DIR_Debug=dist/Debug/MinGW-Windows
-CND_ARTIFACT_NAME_Debug=cppapplication_test
-CND_ARTIFACT_PATH_Debug=dist/Debug/MinGW-Windows/cppapplication_test
+CND_ARTIFACT_NAME_Debug=bullcowgamenb
+CND_ARTIFACT_PATH_Debug=dist/Debug/MinGW-Windows/bullcowgamenb
 CND_PACKAGE_DIR_Debug=dist/Debug/MinGW-Windows/package
-CND_PACKAGE_NAME_Debug=cppapplicationtest.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/MinGW-Windows/package/cppapplicationtest.tar
+CND_PACKAGE_NAME_Debug=bullcowgamenb.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/MinGW-Windows/package/bullcowgamenb.tar
 # Release configuration
 CND_PLATFORM_Release=MinGW-Windows
 CND_ARTIFACT_DIR_Release=dist/Release/MinGW-Windows
-CND_ARTIFACT_NAME_Release=cppapplication_test
-CND_ARTIFACT_PATH_Release=dist/Release/MinGW-Windows/cppapplication_test
+CND_ARTIFACT_NAME_Release=bullcowgamenb
+CND_ARTIFACT_PATH_Release=dist/Release/MinGW-Windows/bullcowgamenb
 CND_PACKAGE_DIR_Release=dist/Release/MinGW-Windows/package
-CND_PACKAGE_NAME_Release=cppapplicationtest.tar
-CND_PACKAGE_PATH_Release=dist/Release/MinGW-Windows/package/cppapplicationtest.tar
+CND_PACKAGE_NAME_Release=bullcowgamenb.tar
+CND_PACKAGE_PATH_Release=dist/Release/MinGW-Windows/package/bullcowgamenb.tar
 #
 # include compiler specific variables
 #
