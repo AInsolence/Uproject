@@ -11,13 +11,14 @@ public:
 
 	int GetMaxTries() const;
 	int GetMyCurrentTry() const;
-	void Reset(); //TODO make a more reach return value
+	void Reset(); // TODO make a more reach return value
 	bool IsGameWon();
-	bool CheckGuessValidity(std::string);//TODO make a more reach return value
+	bool CheckGuessValidity(std::string);// TODO make a more reach return value
+	// provide a method for counting bulls & cows, and increasing try #
 
 // ^^ Please try to ignore this and try to focus on the interface above ^^ 
 private:
-	int MyCurrentTry = 1;
-	int MyMaxTries = 5;
-	bool IsIsogram(std::string);
+	//see constructor for itialization
+	int MyCurrentTry;
+	int MyMaxTries;
 };

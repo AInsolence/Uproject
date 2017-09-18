@@ -3,6 +3,7 @@
 
 FBullCowGame::FBullCowGame()
 {
+	Reset(); //delegate to Reset() method
 	return;
 }
 
@@ -30,8 +31,13 @@ int FBullCowGame::GetMyCurrentTry() const
 
 //Methods
 
-void FBullCowGame::Reset()//TODO make a more reach return value
+void FBullCowGame::Reset()// TODO make a more reach return value
 {
+	constexpr int MAX_TRIES = 5;
+	MyMaxTries = MAX_TRIES;
+	
+	MyCurrentTry = 1;
+	
 	return;
 }
 
@@ -40,12 +46,7 @@ bool FBullCowGame::IsGameWon()
 	return false;
 }
 
-bool FBullCowGame::CheckGuessValidity(std::string)//TODO make a more reach return value
-{
-	return false;
-}
-
-bool FBullCowGame::IsIsogram(std::string)
+bool FBullCowGame::CheckValidity(std::string)// TODO make a more reach return value
 {
 	return false;
 }

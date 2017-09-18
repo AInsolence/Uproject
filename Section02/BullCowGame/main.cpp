@@ -9,7 +9,7 @@
 */
 
 void PrintIntro();
-void PlaySingleGame();
+void PlayGame();
 
 std::string GetGuessFromPlayer();
 void PrintPlayerGuess(std::string& Guess);
@@ -24,7 +24,7 @@ int main(int argc, char** argv) {
 	do
 	{
 		PrintIntro();
-		PlaySingleGame();
+		PlayGame();
 		bPlayAgain = AskPlayAgain();
 	} while (bPlayAgain);
 
@@ -60,15 +60,22 @@ void PrintPlayerGuess(std::string& Guess) {
 }
 
 //single game loop function
-void PlaySingleGame()
+void PlayGame()
 {
+	BCGame.Reset();
 	int MaxTries = BCGame.GetMaxTries();
 	std::cout << MaxTries << std::endl;
 	//loop for the number of turns asking for Guesses
+	// TODO change from FOR to WHILE loop once we are validating tries
 	for (int i = 0; i < MaxTries; i++) {
-		std::string Guess = GetGuessFromPlayer();
+		std::string Guess = GetGuessFromPlayer();// TODO make loop cheking valid
+
+		// submit valid guess to the game
+		// print number of bulls and cows
 		PrintPlayerGuess(Guess);
 	}
+	
+	// TODO summarise game
 }
 
 //ask Player is he want to play again
