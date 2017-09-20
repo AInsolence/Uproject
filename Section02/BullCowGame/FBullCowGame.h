@@ -3,7 +3,15 @@
 #pragma once
 #include<string>
 
+using int32 = int;
 using FString = std::string;
+
+// all values initialized to zero
+struct FBullCowCount
+{
+	int32 Bulls = 0;
+	int32 Cows = 0;
+};
 
 class FBullCowGame {
 public:
@@ -11,16 +19,17 @@ public:
 	FBullCowGame(const FBullCowGame& orig);
 	virtual ~FBullCowGame();
 
-	int GetMaxTries() const;
-	int GetMyCurrentTry() const;
+	int32 GetMaxTries() const;
+	int32 GetMyCurrentTry() const;
 	void Reset(); // TODO make a more reach return value
 	bool IsGameWon();
 	bool CheckGuessValidity(FString);// TODO make a more reach return value
-	// provide a method for counting bulls & cows, and increasing try #
+	FBullCowCount SubmitGuess(FString);
 
 // ^^ Please try to ignore this and try to focus on the interface above ^^ 
 private:
 	//see constructor for itialization
-	int MyCurrentTry;
-	int MyMaxTries;
+	int32 MyCurrentTry;
+	int32 MyMaxTries;
+	FString MyHiddenWord;
 };
