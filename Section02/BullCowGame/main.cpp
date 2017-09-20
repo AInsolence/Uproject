@@ -39,7 +39,7 @@ int main(int argc, char** argv) {
 // introduce the game
 void PrintIntro()
 {
-	constexpr int32 WORD_LENGTH = 6;
+	constexpr int32 WORD_LENGTH = 4;
 	std::cout << "Welcome to Bulls & Cows, a fun word game!" << std::endl;
 	std::cout << "Can you Guess the " << WORD_LENGTH;
 	std::cout << " letter isogram I'm thinking of?" << std::endl;
