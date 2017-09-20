@@ -46,7 +46,7 @@ bool FBullCowGame::IsGameWon()
 	return false;
 }
 
-bool FBullCowGame::CheckValidity(std::string)// TODO make a more reach return value
+bool FBullCowGame::CheckGuessValidity(FString) // TODO make a more reach return value
 {
 	return false;
 }

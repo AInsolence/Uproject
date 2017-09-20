@@ -8,16 +8,18 @@
 *
 */
 
+using FText = std::string;
+
 void PrintIntro();
 void PlayGame();
 
-std::string GetGuessFromPlayer();
-void PrintPlayerGuess(std::string& Guess);
+FText GetGuessFromPlayer();
+void PrintPlayerGuess(FText& Guess);
 bool AskPlayAgain();
 
-FBullCowGame BCGame;//instantiate a new game
+FBullCowGame BCGame;// instantiate a new game
 
-					//the entry point of the application
+					// the entry point of the application
 int main(int argc, char** argv) {
 
 	bool bPlayAgain = false;
@@ -30,10 +32,10 @@ int main(int argc, char** argv) {
 
 	system("pause");
 
-	return 0;//exit the application
+	return 0;// exit the application
 }
 
-//introduce the game
+// introduce the game
 void PrintIntro()
 {
 	constexpr int WORD_LENGTH = 6;
@@ -43,32 +45,32 @@ void PrintIntro()
 }
 
 //get Guess from Player
-std::string GetGuessFromPlayer()
+FText GetGuessFromPlayer()
 {
-	//get the Guess from player
+	// get the Guess from player
 	int CurrentTry = BCGame.GetMyCurrentTry();
 	std::cout << "Try " << CurrentTry << ". Enter your Guess: ";
-	std::string Guess = "";
+	FText Guess = "";
 	std::getline(std::cin, Guess);
 
 	return Guess;
 }
 
-//print out Player Guess
-void PrintPlayerGuess(std::string& Guess) {
+// print out Player Guess
+void PrintPlayerGuess(FText& Guess) {
 	std::cout << "Your variant is : " << Guess << std::endl;
 }
 
-//single game loop function
+// single game loop function
 void PlayGame()
 {
 	BCGame.Reset();
 	int MaxTries = BCGame.GetMaxTries();
 	std::cout << MaxTries << std::endl;
-	//loop for the number of turns asking for Guesses
+	// loop for the number of tries asking for Guesses
 	// TODO change from FOR to WHILE loop once we are validating tries
 	for (int i = 0; i < MaxTries; i++) {
-		std::string Guess = GetGuessFromPlayer();// TODO make loop cheking valid
+		FText Guess = GetGuessFromPlayer();// TODO make loop cheking valid
 
 		// submit valid guess to the game
 		// print number of bulls and cows
@@ -78,11 +80,11 @@ void PlayGame()
 	// TODO summarise game
 }
 
-//ask Player is he want to play again
+// ask Player is he want to play again
 bool AskPlayAgain()
 {
 	std::cout << "Do you want to play again (y/n)?" << std::endl;
-	std::string PlayerAnswer = "";
+	FText PlayerAnswer = "";
 	std::getline(std::cin, PlayerAnswer);
 	return (PlayerAnswer[0] == 'y') || (PlayerAnswer[0] == 'Y');
 }

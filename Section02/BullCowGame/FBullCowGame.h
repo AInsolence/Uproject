@@ -3,6 +3,8 @@
 #pragma once
 #include<string>
 
+using FString = std::string;
+
 class FBullCowGame {
 public:
 	FBullCowGame();
@@ -13,7 +15,7 @@ public:
 	int GetMyCurrentTry() const;
 	void Reset(); // TODO make a more reach return value
 	bool IsGameWon();
-	bool CheckGuessValidity(std::string);// TODO make a more reach return value
+	bool CheckGuessValidity(FString);// TODO make a more reach return value
 	// provide a method for counting bulls & cows, and increasing try #
 
 // ^^ Please try to ignore this and try to focus on the interface above ^^ 
