@@ -38,7 +38,7 @@ void FBullCowGame::Reset()// TODO make a more reach return value
 	
 	MyCurrentTry = 1;
 
-	const FString HIDDEN_WORD = "plant";
+	const FString HIDDEN_WORD = "and";
 	MyHiddenWord = HIDDEN_WORD;
 	
 	return;
@@ -64,12 +64,20 @@ FBullCowCount FBullCowGame::SubmitGuess(FString Guess)
 	// setup the return variable
 	FBullCowCount BullCowCount;
 
+	// check for not empty guess string
+	if (Guess.empty())
+	{
+		std::cout << "Please try again. You can not guess if you enter an empty string!";
+		std::cout << std::endl;
+		return BullCowCount;
+	}
+
 	// loop through all letters in the guess
 	int32 HiddenWordLength = MyHiddenWord.length();
 	for (int32 GChar = 0; GChar < HiddenWordLength; GChar++)
 	{
 		// compare letters against the hidden word
-		for (int32 MHWChar= 0; MHWChar< HiddenWordLength; GChar++)
+		for (int32 MHWChar = 0; MHWChar < HiddenWordLength; MHWChar++)
 		{
 			// if they match
 			if (Guess[GChar] == MyHiddenWord[MHWChar])
