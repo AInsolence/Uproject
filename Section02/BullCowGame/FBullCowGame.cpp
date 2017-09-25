@@ -1,17 +1,20 @@
 #include "stdafx.h"
 #include "FBullCowGame.h"
 
+// constructor
 FBullCowGame::FBullCowGame()
 {
 	Reset(); //delegate to Reset() method
 	return;
 }
 
+// constructor of copy
 FBullCowGame::FBullCowGame(const FBullCowGame& orig)
 {
 	return;
 }
 
+// destructor
 FBullCowGame::~FBullCowGame()
 {
 	return;
@@ -29,18 +32,21 @@ int32 FBullCowGame::GetMyCurrentTry() const
 	return MyCurrentTry;
 }
 
+int32 FBullCowGame::GetHiddenWordLength() const
+{
+	return MyHiddenWord.length();
+}
+
 //Methods
 
 void FBullCowGame::Reset()// TODO make a more reach return value
 {
 	constexpr int32 MAX_TRIES = 5;
-	MyMaxTries = MAX_TRIES;
-	
-	MyCurrentTry = 1;
-
 	const FString HIDDEN_WORD = "and";
+
+	MyMaxTries = MAX_TRIES;
+	MyCurrentTry = 1;
 	MyHiddenWord = HIDDEN_WORD;
-	
 	return;
 }
 
@@ -49,10 +55,27 @@ bool FBullCowGame::IsGameWon()
 	return false;
 }
 
-bool FBullCowGame::CheckGuessValidity(FString)
-// TODO make a more reach return value
+EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 {
-	return false;
+	// if guess isn't an isogram
+	if (false)
+	{
+		return EGuessStatus::NotIsogram;
+	}
+	// if guess isn't all lower case
+	else if (false)
+	{
+		return EGuessStatus::NotLowercase;
+	}
+	// if guess length is wrong
+	else if (Guess.length() != this->GetHiddenWordLength())
+	{
+		return EGuessStatus::WrongLength;
+	}
+	else
+	{
+		return EGuessStatus::OK; // TODO make actual error
+	}
 }
 
 // recieves a valid guess, increments tries, and returns count
@@ -62,22 +85,15 @@ FBullCowCount FBullCowGame::SubmitGuess(FString Guess)
 	MyCurrentTry++;
 
 	// setup the return variable
-	FBullCowCount BullCowCount;
-
-	// check for not empty guess string
-	if (Guess.empty())
-	{
-		std::cout << "Please try again. You can not guess if you enter an empty string!";
-		std::cout << std::endl;
-		return BullCowCount;
-	}
+	FBullCowCount BullCowCount;	
 
 	// loop through all letters in the guess
 	int32 HiddenWordLength = MyHiddenWord.length();
-	for (int32 GChar = 0; GChar < HiddenWordLength; GChar++)
+	std::cout << HiddenWordLength;
+	for (int32 MHWChar = 0; MHWChar < HiddenWordLength; MHWChar++)
 	{
 		// compare letters against the hidden word
-		for (int32 MHWChar = 0; MHWChar < HiddenWordLength; MHWChar++)
+		for (int32 GChar = 0; GChar < HiddenWordLength && GChar < Guess.length(); GChar++)
 		{
 			// if they match
 			if (Guess[GChar] == MyHiddenWord[MHWChar])

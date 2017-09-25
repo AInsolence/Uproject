@@ -1,6 +1,5 @@
 #pragma once
 
-#pragma once
 #include<string>
 
 using int32 = int;
@@ -13,6 +12,14 @@ struct FBullCowCount
 	int32 Cows = 0;
 };
 
+enum class EGuessStatus
+{
+	OK,
+	NotIsogram,
+	WrongLength,
+	NotLowercase
+};
+
 class FBullCowGame {
 public:
 	FBullCowGame();
@@ -21,9 +28,12 @@ public:
 
 	int32 GetMaxTries() const;
 	int32 GetMyCurrentTry() const;
-	void Reset(); // TODO make a more reach return value
+	int32 GetHiddenWordLength() const;
+
+	EGuessStatus CheckGuessValidity(FString Guess) const;
 	bool IsGameWon();
-	bool CheckGuessValidity(FString);// TODO make a more reach return value
+
+	void Reset(); // TODO make a more reach return value
 	FBullCowCount SubmitGuess(FString);
 
 // ^^ Please try to ignore this and try to focus on the interface above ^^ 
