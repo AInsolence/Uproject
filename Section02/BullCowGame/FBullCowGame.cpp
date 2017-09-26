@@ -37,6 +37,11 @@ int32 FBullCowGame::GetHiddenWordLength() const
 	return MyHiddenWord.length();
 }
 
+bool FBullCowGame::IsGameWon() const
+{
+	return bGameIsWon;
+}
+
 //Methods
 
 void FBullCowGame::Reset()// TODO make a more reach return value
@@ -47,12 +52,9 @@ void FBullCowGame::Reset()// TODO make a more reach return value
 	MyMaxTries = MAX_TRIES;
 	MyCurrentTry = 1;
 	MyHiddenWord = HIDDEN_WORD;
-	return;
-}
+	bGameIsWon = false;
 
-bool FBullCowGame::IsGameWon()
-{
-	return false;
+	return;
 }
 
 EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
@@ -60,12 +62,12 @@ EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 	// if guess isn't an isogram
 	if (false)
 	{
-		return EGuessStatus::NotIsogram;
+		return EGuessStatus::NotIsogram; // TODO write function
 	}
 	// if guess isn't all lower case
 	else if (false)
 	{
-		return EGuessStatus::NotLowercase;
+		return EGuessStatus::NotLowercase; // TODO write function
 	}
 	// if guess length is wrong
 	else if (Guess.length() != this->GetHiddenWordLength())
@@ -74,42 +76,44 @@ EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 	}
 	else
 	{
-		return EGuessStatus::OK; // TODO make actual error
+		return EGuessStatus::OK;
 	}
 }
 
 // recieves a valid guess, increments tries, and returns count
-FBullCowCount FBullCowGame::SubmitGuess(FString Guess)
+FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 {
-	// increase the tries number
 	MyCurrentTry++;
-
-	// setup the return variable
 	FBullCowCount BullCowCount;
+	int32 WordLength = MyHiddenWord.length(); // assuming the same length as guess
 
-	// loop through all letters in the guess
-	int32 HiddenWordLength = MyHiddenWord.length();
-	for (int32 MHWChar = 0; MHWChar < HiddenWordLength; MHWChar++)
+	// loop through all letters in the hidden word
+	for (int32 MHWChar = 0; MHWChar < WordLength; MHWChar++)
 	{
-		// compare letters against the hidden word
-		for (int32 GChar = 0; GChar < HiddenWordLength && GChar < Guess.length(); GChar++)
+		// compare letters against the guess
+		for (int32 GChar = 0; GChar < WordLength; GChar++)
 		{
-			// if they match
+			// if they match then 
 			if (Guess[GChar] == MyHiddenWord[MHWChar])
-			{
-				// if they're in the same place
+			{ // if they're in the same place
 				if (GChar == MHWChar)
 				{
-					// incriment bulls
 					BullCowCount.Bulls++;
 				}
 				else
 				{
-					// incriment cows
 					BullCowCount.Cows++;
 				}	
 			}				
 		}
+	}
+	if (BullCowCount.Bulls == WordLength)
+	{
+		bGameIsWon = true;
+	}
+	else
+	{
+		bGameIsWon = false;
 	}
 	return BullCowCount;
 }

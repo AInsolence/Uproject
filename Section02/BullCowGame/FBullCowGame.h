@@ -30,12 +30,11 @@ public:
 	int32 GetMaxTries() const;
 	int32 GetMyCurrentTry() const;
 	int32 GetHiddenWordLength() const;
-
+	bool IsGameWon() const;
 	EGuessStatus CheckGuessValidity (FString) const;
-	bool IsGameWon();
-
+	
 	void Reset(); // TODO make a more reach return value
-	FBullCowCount SubmitGuess(FString);
+	FBullCowCount SubmitValidGuess(FString);
 
 // ^^ Please try to ignore this and try to focus on the interface above ^^ 
 private:
@@ -43,4 +42,5 @@ private:
 	int32 MyCurrentTry;
 	int32 MyMaxTries;
 	FString MyHiddenWord;
+	bool bGameIsWon;
 };

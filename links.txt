@@ -4,4 +4,8 @@
 
 3. Free programming books: https://github.com/EbookFoundation/free-programming-books/blob/master/free-programming-books-ru.md
 
-4. 
+4. Visualization of calculation: http://www.wolframalpha.com/input/?i=n%5E2+vs+(n+log+n),+n+%3D+2+to+17
+
+5. Algorithms Sheet: https://habrahabr.ru/post/188010/
+
+6. 
