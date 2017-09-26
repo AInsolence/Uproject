@@ -85,11 +85,10 @@ FBullCowCount FBullCowGame::SubmitGuess(FString Guess)
 	MyCurrentTry++;
 
 	// setup the return variable
-	FBullCowCount BullCowCount;	
+	FBullCowCount BullCowCount;
 
 	// loop through all letters in the guess
 	int32 HiddenWordLength = MyHiddenWord.length();
-	std::cout << HiddenWordLength;
 	for (int32 MHWChar = 0; MHWChar < HiddenWordLength; MHWChar++)
 	{
 		// compare letters against the hidden word

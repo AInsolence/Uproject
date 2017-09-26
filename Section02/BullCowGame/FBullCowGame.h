@@ -14,6 +14,7 @@ struct FBullCowCount
 
 enum class EGuessStatus
 {
+	Invalid,
 	OK,
 	NotIsogram,
 	WrongLength,
@@ -30,7 +31,7 @@ public:
 	int32 GetMyCurrentTry() const;
 	int32 GetHiddenWordLength() const;
 
-	EGuessStatus CheckGuessValidity(FString Guess) const;
+	EGuessStatus CheckGuessValidity (FString) const;
 	bool IsGameWon();
 
 	void Reset(); // TODO make a more reach return value
