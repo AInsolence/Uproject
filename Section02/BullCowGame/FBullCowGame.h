@@ -34,7 +34,7 @@ public:
 	bool IsGameWon() const;
 	EGuessStatus CheckGuessValidity (FString) const;
 	
-	void Reset(); // TODO make a more reach return value
+	void Reset();
 	FBullCowCount SubmitValidGuess(FString);
 
 // ^^ Please try to ignore this and try to focus on the interface above ^^ 
@@ -46,4 +46,5 @@ private:
 	bool bGameIsWon;
 
 	bool bIsIsogram(FString) const;
+	bool bIsLowercase(FString) const;
 };

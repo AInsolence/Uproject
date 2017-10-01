@@ -45,7 +45,7 @@ bool FBullCowGame::IsGameWon() const
 
 //Methods
 
-void FBullCowGame::Reset()// TODO make a more reach return value
+void FBullCowGame::Reset()
 {
 	constexpr int32 MAX_TRIES = 5;
 	const FString HIDDEN_WORD = "and";
@@ -63,12 +63,12 @@ EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 	// if guess isn't an isogram
 	if (!bIsIsogram(Guess))
 	{
-		return EGuessStatus::NotIsogram; // TODO write function
+		return EGuessStatus::NotIsogram;
 	}
 	// if guess isn't all lower case
-	else if (false)
+	else if (!bIsLowercase(Guess))
 	{
-		return EGuessStatus::NotLowercase; // TODO write function
+		return EGuessStatus::NotLowercase;
 	}
 	// if guess length is wrong
 	else if (Guess.length() != this->GetHiddenWordLength())
@@ -143,4 +143,16 @@ bool FBullCowGame::bIsIsogram(FString Guess) const
 		}
 	}
 	return true; // if there are not repeated letters in the Guess
+}
+
+bool FBullCowGame::bIsLowercase(FString Guess) const
+{
+	for (auto Letter : Guess)
+	{
+		if (!islower(Letter)) //if NOT a lowercase letter in guess
+		{
+			return false;
+		}
+	}
+	return true;
 }
