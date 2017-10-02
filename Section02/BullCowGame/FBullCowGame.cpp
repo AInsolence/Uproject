@@ -1,6 +1,11 @@
+/*	
+	This is a class provides necessary data & game logic for the BullCow game
+*/
+
+#pragma once
 #include "stdafx.h"
 #include "FBullCowGame.h"
-#define TMap std::map
+#define TMap std::map // to make more Unreal friendly
 
 // constructor
 FBullCowGame::FBullCowGame()
@@ -23,11 +28,6 @@ FBullCowGame::~FBullCowGame()
 
 //Getters
 
-int32 FBullCowGame::GetMaxTries() const
-{
-	return MyMaxTries;
-}
-
 int32 FBullCowGame::GetMyCurrentTry() const
 {
 	return MyCurrentTry;
@@ -43,19 +43,39 @@ bool FBullCowGame::IsGameWon() const
 	return bGameIsWon;
 }
 
-//Methods
+// Setters
 
 void FBullCowGame::Reset()
 {
-	constexpr int32 MAX_TRIES = 5;
-	const FString HIDDEN_WORD = "and";
-
-	MyMaxTries = MAX_TRIES;
 	MyCurrentTry = 1;
-	MyHiddenWord = HIDDEN_WORD;
 	bGameIsWon = false;
-
 	return;
+}
+
+void FBullCowGame::SetHiddenWordByLength(int32 ChosenWordLength)
+{
+	// container with key = length, value = isograms
+	TMap<int32, FString> WordByLength{ { 3, "ear" },{ 4, "hand" },{ 5, "chest" },\
+	{ 6, "throat" },{ 7, "stomach" } };
+	// initialize the hidden word depending on the length
+	MyHiddenWord = WordByLength[ChosenWordLength];
+}
+
+//Methods
+
+int32 FBullCowGame::GetMaxTries() const
+{
+	constexpr int32 DEFAULT_NUMBER_OF_TRIES = 5;
+	// container with key = word_length, value = maximum_tries
+	TMap<int32, int32> WordLengthToMaxTries{ { 3, 5 },{ 4, 6 },{ 5, 7 },{ 6, 10 },{ 7, 15 } };
+	if (WordLengthToMaxTries[MyHiddenWord.length()])
+	{
+		return WordLengthToMaxTries[MyHiddenWord.length()];
+	}
+	else
+	{
+		return DEFAULT_NUMBER_OF_TRIES;
+	}
 }
 
 EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
@@ -108,7 +128,7 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 			}				
 		}
 	}
-	if (BullCowCount.Bulls == WordLength)
+	if (BullCowCount.Bulls && BullCowCount.Bulls == WordLength)
 	{
 		bGameIsWon = true;
 	}

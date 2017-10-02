@@ -1,32 +1,21 @@
-// BullCowGame.cpp: определяет точку входа для консольного приложения.
-//
+/*	This is a console executable, that makes use of the BullCow class
+	This acts as the view in a MVC pattern, and is responsible for all
+	user interaction. For the game logic see the FBullCowGame class.
+*/
 
+#pragma once
 #include "stdafx.h"
 #include "FBullCowGame.h"
 
-/*
-*
-*/
-
+// to make syntax Unreal friendly
 using int32 = int;
 using FText = std::string;
-FBullCowGame BCGame;// instantiate a new game
+FBullCowGame BCGame;// instantiate a new game, which we re-use across plays
 
-// introduce the game
-void PrintIntro()
-{
-	std::cout << "\n\n";
-	std::cout << "Welcome to Bulls & Cows, a fun word game!\n" << std::endl;
-	std::cout << "           }   {         /__/ " << std::endl;
-	std::cout << "           (o o)        (o o) " << std::endl;
-	std::cout << "   /-------\\   /        \\  /-------\\ " << std::endl;
-	std::cout << "  / | BULL |o o          oo| COW  | \\ " << std::endl;
-	std::cout << " *  |-,--- |               |------|  * " << std::endl;
-	std::cout << "    ^      ^               ^      ^ " << std::endl;
-	std::cout << "Can you Guess the " << BCGame.GetHiddenWordLength();
-	std::cout << " letter isogram I'm thinking of?" << std::endl;
-}
+// function prototypes as otside the class
+void PrintIntro();
 void PlayGame();
+void AskWordLength();
 void PrintGameSummary();
 FText GetValidGuess();
 void PrintPlayerGuess(FText& Guess);
@@ -46,6 +35,20 @@ int main(int argc, char** argv) {
 	system("pause");
 
 	return 0;// exit the application
+}
+
+void PrintIntro()
+{
+	std::cout << "\n\n";
+	std::cout << "Welcome to Bulls & Cows, a fun word game!\n" << std::endl;
+	std::cout << "           }   {         /__/ " << std::endl;
+	std::cout << "           (o o)        (o o) " << std::endl;
+	std::cout << "   /-------\\   /        \\  /-------\\ " << std::endl;
+	std::cout << "  / | BULL |o o          oo| COW  | \\ " << std::endl;
+	std::cout << " *  |-,--- |               |------|  * " << std::endl;
+	std::cout << "    ^      ^               ^      ^ " << std::endl;
+	std::cout << "Try to guess the isogram I'm thinking of !!!" << std::endl;
+	std::cout << "Hint: it is a part of human body." << std::endl;
 }
 
 // loop continually until the user gives a valid guess
@@ -94,6 +97,8 @@ void PlayGame()
 	BCGame.Reset();
 	int32 MaxTries = BCGame.GetMaxTries();
 
+	AskWordLength();
+
 	// loop asking for guesses while the game is NOT won
 	// and there are still try remainings
 	while (!BCGame.IsGameWon() && BCGame.GetMyCurrentTry() <= MaxTries)
@@ -111,6 +116,49 @@ void PlayGame()
 	
 	PrintGameSummary();
 
+	return;
+}
+
+// asking user for hidden word length
+void AskWordLength()
+{
+	const int32 MIN_WORD_LENGTH = 3;
+	const int32 MAX_WORD_LENGTH = 7;
+
+	FString UserChoice = "";
+	std::cout << "Do you want to chose hidden word length (y/n)?\n";
+	std::cin >> UserChoice;
+	// if user want to set word length
+	if (UserChoice == "y")
+	{	
+		int32 ChosenWordLength = 0;
+		FString UserInput = "";
+		std::cout << "Please enter available word length from 3 to 7:\n";
+		std::cin >> UserInput;
+		//check user input for right integer input
+		if (!(UserInput.find_first_not_of("0123456789") == FString::npos))
+		{
+			std::cout << "Invalid input, setting the default length for you!\n";
+			BCGame.SetHiddenWordByLength(MIN_WORD_LENGTH);// by default use the 3 letter word
+			return;
+		}
+		ChosenWordLength = stoi(UserInput);
+
+		// if user gives the available word length
+		if (ChosenWordLength > MIN_WORD_LENGTH && ChosenWordLength < MAX_WORD_LENGTH)
+		{
+			BCGame.SetHiddenWordByLength(ChosenWordLength);
+		}
+		else
+		{
+			std::cout << "The length of the word you entered is not available, please try again\n";
+			AskWordLength();
+		}
+	}
+	else
+	{
+		BCGame.SetHiddenWordByLength(MIN_WORD_LENGTH);// by default use the 3 letter word
+	}
 	return;
 }
 
