@@ -16,6 +16,7 @@ FBullCowGame BCGame;// instantiate a new game, which we re-use across plays
 void PrintIntro();
 void PlayGame();
 void AskWordLength();
+void GetValidLength(int32 MIN_WORD_LENGTH, int32 MAX_WORD_LENGTH);
 void PrintGameSummary();
 FText GetValidGuess();
 void PrintPlayerGuess(FText& Guess);
@@ -47,8 +48,8 @@ void PrintIntro()
 	std::cout << "  / | BULL |o o          oo| COW  | \\ " << std::endl;
 	std::cout << " *  |-,--- |               |------|  * " << std::endl;
 	std::cout << "    ^      ^               ^      ^ " << std::endl;
-	std::cout << "Try to guess the isogram I'm thinking of !!!" << std::endl;
-	std::cout << "Hint: it is a part of human body." << std::endl;
+	std::cout << "Try to guess the isogram I'm thinking of !!!\n" << std::endl;
+	std::cout << "Hint: it is a part of human body.\n" << std::endl;
 }
 
 // loop continually until the user gives a valid guess
@@ -119,7 +120,7 @@ void PlayGame()
 	return;
 }
 
-// asking user for hidden word length
+// asking user if he wants to set a hidden word length
 void AskWordLength()
 {
 	const int32 MIN_WORD_LENGTH = 3;
@@ -131,35 +132,35 @@ void AskWordLength()
 	// if user want to set word length
 	if (UserChoice == "y")
 	{	
-		int32 ChosenWordLength = 0;
-		FString UserInput = "";
-		std::cout << "Please enter available word length from 3 to 7:\n";
-		std::cin >> UserInput;
-		//check user input for right integer input
-		if (!(UserInput.find_first_not_of("0123456789") == FString::npos))
-		{
-			std::cout << "Invalid input, setting the default length for you!\n";
-			BCGame.SetHiddenWordByLength(MIN_WORD_LENGTH);// by default use the 3 letter word
-			return;
-		}
-		ChosenWordLength = stoi(UserInput);
-
-		// if user gives the available word length
-		if (ChosenWordLength > MIN_WORD_LENGTH && ChosenWordLength < MAX_WORD_LENGTH)
-		{
-			BCGame.SetHiddenWordByLength(ChosenWordLength);
-		}
-		else
-		{
-			std::cout << "The length of the word you entered is not available, please try again\n";
-			AskWordLength();
-		}
+		GetValidLength(MIN_WORD_LENGTH, MAX_WORD_LENGTH);
 	}
 	else
 	{
+		std::cout << "Setting the default length for you!\n";
 		BCGame.SetHiddenWordByLength(MIN_WORD_LENGTH);// by default use the 3 letter word
 	}
 	return;
+}
+
+// get from user a hidden word length
+void GetValidLength(int32 MIN_WORD_LENGTH, int32 MAX_WORD_LENGTH)
+{
+	FString UserInput = "";
+	std::cout << "Please enter available word length from ";
+	std::cout << MIN_WORD_LENGTH << " to " << MAX_WORD_LENGTH << " :\n";
+	std::cin >> UserInput;
+	//check user input for valid characters & valid available word length
+	if (UserInput.find_first_not_of("0123456789") == FString::npos && 
+		stoi(UserInput) > MIN_WORD_LENGTH && stoi(UserInput) < MAX_WORD_LENGTH)
+	{// if input is valid set hidden word with users length
+		BCGame.SetHiddenWordByLength(stoi(UserInput));
+	}
+	else
+	{// if user input is invalid, suggest him to try again
+		std::cout << "Your input is not valid or ";
+		std::cout << "the length of the word you entered is not available.\nPlease try again\n\n";
+		AskWordLength();
+	}
 }
 
 void PrintGameSummary()
