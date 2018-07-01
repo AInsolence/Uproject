@@ -259,3 +259,10 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+
+# Unreal files
+03_BuildingEscape/BuildingEscape/Binaries
+03_BuildingEscape/BuildingEscape/Build
+03_BuildingEscape/BuildingEscape/Intermediate
+03_BuildingEscape/BuildingEscape/Saved
+03_BuildingEscape/BuildingEscape/.vs/BuildingEscape/v15/Browse.VC.db
