@@ -1,7 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Grabber.h"
+#include "Engine/World.h"
+#include "DrawDebugHelpers.h"
 
+#define OUT
 
 // Sets default values for this component's properties
 UGrabber::UGrabber()
@@ -31,6 +34,27 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
+	// Get player view point this tick
+	FVector PlayerViewPointLocation;
+	FRotator PlayerViewPointRotation;
+	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(
+		OUT PlayerViewPointLocation,
+		OUT PlayerViewPointRotation
+	);
+
+	/*FString PlayerLocation = PlayerViewPointLocation.ToString();
+	FString PlaterRotation = PlayerViewPointRotation.ToString();
+	UE_LOG(LogTemp, Warning, TEXT("%s, %s"), *PlayerLocation, *PlaterRotation);*/
+	FVector LineTraceEnd = PlayerViewPointLocation + 
+		PlayerViewPointRotation.Vector() * PlayerHandsLength;
+	// Draw a red trace in the world to visualize
+	DrawDebugLine(GetWorld(), PlayerViewPointLocation, LineTraceEnd,
+												FColor::Green, false, 0.f, 0.f, 5.f);
+
+
+	// Ray cast out to reach distance
+
+	// See what we hit
+
 }
 
