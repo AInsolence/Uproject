@@ -24,8 +24,31 @@ void UGrabber::BeginPlay()
 
 	UE_LOG(LogTemp, Warning, TEXT("Grabber reporting for duty!"));
 
-	// ...
-	
+	/// Looks for attached physics handle
+	PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
+	if (PhysicsHandle)
+	{
+		/// Physics handle is found
+		UE_LOG(LogTemp, Warning, TEXT("Find PhysicsHandleComponent owned by %s."),
+			*(GetOwner()->GetName()));
+	}
+	else 
+	{
+		UE_LOG(LogTemp, Error, TEXT("Cannot find physical handler owned by %s."), 
+			*(GetOwner()->GetName()));
+	}
+	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
+	if (InputComponent)
+	{
+		/// Physics handle is found
+		UE_LOG(LogTemp, Warning, TEXT("Find InputComponent owned by %s."), *(GetOwner()->GetName()));
+		/// Bind the input axis
+		InputComponent->BindAction("Grab", IE_Pressed, this, UGrabber::Grab);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Cannot find InputComponent owned by %s."), *(GetOwner()->GetName()));
+	}
 }
 
 
@@ -67,5 +90,9 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	}
 	/// See what we hit
 	
+}
+
+void UGrabber::Grab()
+{
 }
 
