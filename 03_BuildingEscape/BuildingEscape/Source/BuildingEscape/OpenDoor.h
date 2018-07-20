@@ -31,8 +31,8 @@ private:
 	UPROPERTY(VisibleAnywhere)
 		float OpenAngle = -90.0f;
 	UPROPERTY(EditAnywhere)
-		ATriggerVolume* PressurePlate;
-	AActor* Owner;
+		ATriggerVolume* PressurePlate = nullptr;
+	AActor* Owner = nullptr;
 	float BaseRotationPos;
 	UPROPERTY(EditAnywhere)
 		float TotalMassOpensDoor = 30.0f;

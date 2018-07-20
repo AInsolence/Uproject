@@ -25,6 +25,10 @@ void UOpenDoor::BeginPlay()
 	Super::BeginPlay();
 	Owner = GetOwner();
 	BaseRotationPos = Owner->GetActorRotation().Yaw;
+	if (!PressurePlate)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Pressure plate does not exist or attached."));
+	}
 }
 
 void UOpenDoor::OpenDoor()
@@ -57,6 +61,7 @@ float UOpenDoor::GetTotalMassOfActorsOnPlate()
 {
 	float TotalMass = 0.f;
 	TArray<AActor*> ActorsOnPlate;
+	if (!PressurePlate) { return TotalMass; }
 	PressurePlate->GetOverlappingActors(OUT ActorsOnPlate);
 	for (const AActor* actor : ActorsOnPlate)
 	{
