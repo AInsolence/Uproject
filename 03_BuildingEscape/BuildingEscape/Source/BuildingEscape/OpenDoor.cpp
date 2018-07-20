@@ -1,10 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
-#include "Components/PrimitiveComponent.h"
 #include "OpenDoor.h"
 #include "GameFramework/Actor.h"
 #include "Engine/World.h"
-
+#include "Components/PrimitiveComponent.h"
 
 #define OUT
 
@@ -24,23 +22,11 @@ void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
 	Owner = GetOwner();
-	BaseRotationPos = Owner->GetActorRotation().Yaw;
 	if (!PressurePlate)
 	{
 		UE_LOG(LogTemp, Error, TEXT("Pressure plate does not exist or attached."));
 	}
 }
-
-void UOpenDoor::OpenDoor()
-{
-	Owner->SetActorRotation(FRotator(0.f, BaseRotationPos + OpenAngle, 0.f));
-}
-
-void UOpenDoor::CloseDoor()
-{
-	Owner->SetActorRotation(FRotator(0.f, BaseRotationPos, 0.f));
-}
-
 
 // Called every frame
 void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -49,11 +35,11 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	
 	if (GetTotalMassOfActorsOnPlate() > TotalMassOpensDoor)
 	{
-		OpenDoor();
+		OnOpen.Broadcast();
 	}
 	else
 	{
-		CloseDoor();
+		OnClose.Broadcast();
 	}
 }
 
